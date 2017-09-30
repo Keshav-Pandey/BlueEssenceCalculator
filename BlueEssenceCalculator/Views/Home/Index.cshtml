@@ -1,31 +1,72 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Blue Essence Calculator";
 }
-
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1><img src="~/Images/essence.png" style="width:200px;height:200px;" />Blue Essence Calculator</h1>
+    <p class="lead">A free and easy to use tool to calculate how much blue essence you will get at the end of the season</p>
+    <p><a href="https://www.youtube.com/watch?v=Yq2i6RDmbNc" target="_blank" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<form action="/Home/Index" method="post" id="mainForm" name="mainForm">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="text-primary">Influence Points</h2>
+            <img src="~/Images/LoL-smurf-IP.png" style="width:200px;height:200px;padding-bottom:10px" />
+            @Html.TextBox("IP", 0, new { @class= "form-control", @type = "number" })
+            @Html.ValidationMessage("IP")
+            <br /><br />
+            <p><a class="btn btn-default" href="http://leagueoflegends.wikia.com/wiki/Influence_Points" target="_blank">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Tier 3 Quintessences</h2>
+            <img src="~/Images/rune.png" style="width:200px;height:200px;padding-bottom:10px" class="img-responsive img-circle" />
+            @Html.TextBox("Rune", 0, new { @class= "form-control", @type = "number" })
+            @Html.ValidationMessage("Rune")
+            <br /><br />
+            <p><a class="btn btn-default" href="http://leagueoflegends.wikia.com/wiki/Runes">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Rune Pages</h2>
+            <img src="~/Images/runepage.jpg" style="width:200px;height:200px;padding-bottom:10px" class="img-responsive img-circle" />
+            @Html.TextBox("Runepage", 0, new { @class= "form-control", @type = "number" })
+            @Html.ValidationMessage("Runepage")
+            <br /><br />
+            <p><a class="btn btn-default" href="http://leagueoflegends.wikia.com/wiki/Runebook">Learn more &raquo;</a></p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="text-primary">Blue Essence</h2>
+            <img src="~/Images/essence.png" style="width:200px;height:200px;padding-bottom:10px" class="img-responsive img-circle" />
+            @Html.TextBox("Essence", 0, new { @class= "form-control", @type = "number" })
+            @Html.ValidationMessage("Essence")
+            <br /><br />
+            <p><a class="btn btn-default" href="https://www.youtube.com/watch?v=Yq2i6RDmbNc" target="_blank">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Tier 3 Gylphs & Seals</h2>
+            <img src="~/Images/gylph.png" style="width:200px;height:200px;padding-bottom:10px" class="img-responsive img-circle" />
+            <br /><br />
+            @Html.TextBox("Earnings", 0, new { @class= "form-control", @type = "number" })
+            @Html.ValidationMessage("Earnings")
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Total Blue Essence</h2>
+            <img src="~/Images/iptoblue.jpg" style="width:200px;height:200px;padding-bottom:10px" class="img-responsive img-circle" />
+            <br /><br />
+            <div id="totalContent"></div>
+            @if (@TempData["Total"] != null)
+            {
+                <h3 class='text-primary' id='totalEssence'>You will get<strong> @TempData["Total"] </strong> blue essence and <strong> @TempData["Skins"] </strong> Epic Skin/s</h3>
+                <script>
+                    location.href = "#totalEssence";
+                </script>
+            }
+            <input id="submit" type="submit" value="Calculate" class="btn btn-primary btn-lg" />
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</form>
+@if (@TempData["Error"] != null)
+{
+        <script>location.href = "#mainForm";</script>
+}
