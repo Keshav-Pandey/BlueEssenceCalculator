@@ -160,6 +160,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\gylph.png" />
     <Content Include="Images\LoL-smurf-IP.png" />
+    <Content Include="Images\marks-seals-glyphs.png" />
     <Content Include="Images\runepage.jpg" />
     <Content Include="Images\conversion_chart.jpg" />
     <Content Include="Images\essence.png" />
